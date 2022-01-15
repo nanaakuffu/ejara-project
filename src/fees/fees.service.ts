@@ -81,7 +81,14 @@ export class FeeService {
     return feeArray;
   }
 
-  async getLatestTransactions(): Promise<Fee> {
+  async getLatestTransactions(): Promise<{
+    id: number;
+    block_number: string;
+    min: number;
+    max: number;
+    average: number;
+    median: number;
+  }> {
     const blockId = await this.getlatestBlock();
     const feeArray = await this.getTransactions(blockId);
 

@@ -1,8 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { Fee } from '@prisma/client';
+import JwtAuthGuard from './../auth/auth.guard';
 import { FeeService } from './fees.service';
 
 @Controller('fees')
+@UseGuards(JwtAuthGuard)
 export class FeeController {
   constructor(private readonly feeService: FeeService) {}
 
@@ -17,7 +19,14 @@ export class FeeController {
   // }
 
   @Get('latest')
-  async getLatestTransactions(): Promise<Fee> {
+  async getLatestTransactions(): Promise<{
+    id: number;
+    block_number: string;
+    min: number;
+    max: number;
+    average: number;
+    median: number;
+  }> {
     return this.feeService.getLatestTransactions();
   }
 
