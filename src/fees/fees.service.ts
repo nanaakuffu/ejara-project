@@ -4,6 +4,7 @@ import { Fee } from '@prisma/client';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, map } from 'rxjs';
 import { max, mean, median, min } from 'simple-statistics';
+import { FeeDto } from './dto/fee.dto';
 
 @Injectable()
 export class FeeService {
@@ -82,7 +83,6 @@ export class FeeService {
   }
 
   async getLatestTransactions(): Promise<{
-    id: number;
     block_number: string;
     min: number;
     max: number;
@@ -92,19 +92,28 @@ export class FeeService {
     const blockId = await this.getlatestBlock();
     const feeArray = await this.getTransactions(blockId);
 
-    return {
-      id: 1,
+    const lastestFee: FeeDto = {
       block_number: blockId,
       min: min(feeArray),
       max: max(feeArray),
       average: mean(feeArray),
       median: median(feeArray),
     };
+
+    return this.upsertLatestBlockChain(lastestFee);
   }
 
   async getTransactionByBlockId(block_number: string): Promise<Fee | null> {
     return this.dbService.fee.findUnique({
       where: { block_number: block_number },
+    });
+  }
+
+  async upsertLatestBlockChain(feeDto: FeeDto): Promise<FeeDto> {
+    return this.dbService.fee.upsert({
+      create: feeDto,
+      update: feeDto,
+      where: { block_number: feeDto.block_number },
     });
   }
 }
