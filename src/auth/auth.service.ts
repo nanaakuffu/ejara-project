@@ -5,6 +5,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import DBService from 'src/db/db.service';
+import * as bcrypt from 'bcrypt';
+import { AuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,22 +15,33 @@ export class AuthService {
    */
   constructor(private dbService: DBService, private jwtService: JwtService) {}
 
-  async login(email: string, pass: string): Promise<any> {
+  async login(loginData: AuthDto): Promise<{
+    user: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      email: string;
+    };
+    token: string;
+  }> {
     const user = await this.dbService.user.findUnique({
-      where: { email: email },
+      where: { email: loginData.email },
     });
 
     if (!user) {
       throw new NotFoundException('Email does not seem to be in our records');
     }
 
-    const validPassword = user.password === pass;
+    const validPassword = await bcrypt.compare(
+      loginData.password,
+      user.password,
+    );
 
     if (!validPassword) {
       throw new UnauthorizedException();
     }
 
-    const { password, ...restOfData } = user;
+    const { password, created_at, updated_at, ...restOfData } = user;
 
     return {
       user: restOfData,
