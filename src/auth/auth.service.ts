@@ -45,11 +45,16 @@ export class AuthService {
 
     return {
       user: restOfData,
-      token: this.jwtService.sign({ userId: user.id }),
+      token: this.jwtService.sign({ user_id: user.id, email: user.email }),
     };
   }
 
-  async validateUser(user_id: number): Promise<any> {
-    return this.dbService.user.findUnique({ where: { id: user_id } });
+  async validateUser(payload: {
+    user_id: number;
+    user_email: string;
+  }): Promise<any> {
+    return this.dbService.user.findUnique({
+      where: { id: payload.user_id, email: payload.user_email },
+    });
   }
 }
