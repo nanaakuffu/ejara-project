@@ -1,10 +1,14 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Fee } from '@prisma/client';
 import JwtAuthGuard from './../auth/auth.guard';
+import { FeeEntity } from './entities/fee.entity';
 import { FeeService } from './fees.service';
 
 @Controller('fees')
 @UseGuards(JwtAuthGuard)
+@ApiTags('fees')
+@ApiBearerAuth()
 export class FeeController {
   constructor(private readonly feeService: FeeService) {}
 
@@ -19,6 +23,7 @@ export class FeeController {
   // }
 
   @Get('latest')
+  @ApiOkResponse({ type: FeeEntity })
   async getLatestTransactions(): Promise<{
     id: number;
     block_number: string;
@@ -31,7 +36,10 @@ export class FeeController {
   }
 
   @Get(':block_number')
-  async getTransactionsByBlockNumber(@Param() params): Promise<Fee> {
+  @ApiOkResponse({ type: FeeEntity })
+  async getTransactionsByBlockNumber(
+    @Param('block_number') params,
+  ): Promise<Fee> {
     return this.feeService.getTransactionByBlockId(params.block_number);
   }
 }
