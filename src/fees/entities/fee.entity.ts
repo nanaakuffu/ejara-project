@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Fee } from '@prisma/client';
 
+/**
+ * A class for the structure of the fee object
+ */
 export class FeeEntity implements Fee {
   @ApiProperty()
   id: number;

@@ -6,11 +6,12 @@ import { UserEntity } from './entities/users.entity';
 @Injectable()
 export class UsersService {
   /**
-   *
+   * Inject db service
    */
   constructor(private dbService: DBService) {}
 
   async getAllUsers(): Promise<UserEntity[]> {
+    // Select according to the UserEntity shape
     return this.dbService.user.findMany({
       select: {
         id: true,
@@ -23,6 +24,7 @@ export class UsersService {
     });
   }
 
+  // Find user by email
   async findUser(email: string): Promise<User> {
     return this.dbService.user.findUnique({
       where: { email: email },

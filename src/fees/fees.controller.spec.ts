@@ -7,17 +7,6 @@ describe('FeeController', () => {
   let feeController: FeeController;
   let spyService: FeeService;
 
-  // beforeEach(async () => {
-  //   const app: TestingModule = await Test.createTestingModule({
-  //     imports: [DBModule],
-  //     controllers: [FeeController],
-  //     providers: [FeeService],
-  //   }).compile();
-
-  //   feeController = app.get<FeeController>(FeeController);
-  //   spyService = app.get<FeeService>(FeeService);
-  // });
-
   beforeAll(async () => {
     const ApiServiceProvider = {
       provide: FeeService,

@@ -8,7 +8,7 @@ import { UserEntity } from './entities/users.entity';
 @ApiTags('users')
 export class UsersController {
   /**
-   *
+   * Inject the users service in this controller throguh the constructor
    */
   constructor(private usersService: UsersService) {}
 
@@ -17,6 +17,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: UserEntity })
   async getAllUsers(): Promise<UserEntity[]> {
+    // Get all users
     return this.usersService.getAllUsers();
   }
 }

@@ -1,5 +1,8 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
+/**
+ * A class to handle the structure of fee data
+ */
 export class FeeDto {
   @IsNotEmpty()
   block_number: string;

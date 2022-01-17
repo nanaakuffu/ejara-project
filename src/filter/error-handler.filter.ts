@@ -7,6 +7,9 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
+/**
+ * A class to handle an http exxeption
+ */
 @Catch(HttpException)
 export class ErrorHandlerFilter implements ExceptionFilter {
   private readonly logger = new Logger(ErrorHandlerFilter.name);

@@ -6,6 +6,10 @@ import AuthController from './auth.controller';
 import { AuthService } from './auth.service';
 import JwtStrategy from './jwt.strategy';
 
+/**
+ * Importing all necessay modules into the auth feature
+ * Importing the authcontroller and services needed within the auth feature
+ */
 @Module({
   imports: [
     UsersModule,

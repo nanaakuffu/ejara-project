@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+// Class used to represent the structure of data returned when login is successful
 export class Auth {
   @ApiProperty()
   user: {

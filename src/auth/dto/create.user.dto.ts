@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
+// Class to handle the type of data needed to create a User with the microservice
 export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()

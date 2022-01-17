@@ -1,5 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+/**
+ * Class for the user entity holding the structure of the use date
+ */
 export class UserEntity {
   @ApiProperty()
   id: number;
