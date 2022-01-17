@@ -65,7 +65,17 @@ export class AuthService {
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
-    // Create a user within the microservice
-    return this.dbService.user.create({ data: createUserDto });
+    // Create a user within the microservice and return a type of UserEntity
+    return this.dbService.user.create({
+      data: createUserDto,
+      select: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
   }
 }
