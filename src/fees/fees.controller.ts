@@ -13,16 +13,6 @@ import { FeeService } from './fees.service';
 export class FeeController {
   constructor(private readonly feeService: FeeService) {}
 
-  // @Get('latest_block')
-  // async getLatestBlock(): Promise<string> {
-  //   return this.feeService.getlatestBlock();
-  // }
-
-  // @Get('transactions')
-  // async getTransactions(): Promise<number[]> {
-  //   return this.feeService.getTransactions();
-  // }
-
   @Get('latest')
   @ApiOkResponse({ type: FeeEntity })
   async getLatestTransactions(): Promise<FeeDto> {

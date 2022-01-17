@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import DBService from 'src/db/db.service';
 import { Fee } from '@prisma/client';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, map } from 'rxjs';
 import { max, mean, median, min } from 'simple-statistics';
 import { FeeDto } from './dto/fee.dto';
+import DBService from '../db/db.service';
 
 @Injectable()
 export class FeeService {
@@ -47,36 +47,6 @@ export class FeeService {
             ),
           ),
         ),
-      // map((d) => d.contents),
-      // map((arrayData) =>
-      //   arrayData.map((element) => element.map((data) => data.contents)),
-      // ),
-      // map((d) =>
-      //   d.map((e) =>
-      //     e.map(
-      //       (k) => k.filter((m) => m.kind === 'transaction'), //.map((f) => f.fee),
-      //       // .map((l) => l)
-      //       // .forEach((element) => {
-      //       //   feeArray.push(element);
-      //       // }),
-      //       // .reduce((t, v) => {
-      //       //   return t + parseInt(v);
-      //       // }, 0)
-      //       // .map((f) => feeArray.push(f)),
-      //     ),
-      //   ),
-      // ),
-      // map((f) => f),
-      // map((arrayData) =>
-      //   arrayData.map((data) => {
-      //     if (data.length > 0) {
-      //       data.map((res) =>
-      //         res.contents.map((kindData) => console.log(kindData)),
-      //       );
-      //     }
-      //   }),
-      // ),
-      // ),
     );
 
     return feeArray;

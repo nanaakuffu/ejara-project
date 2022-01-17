@@ -4,9 +4,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import DBService from 'src/db/db.service';
+import DBService from '../db/db.service';
 import * as bcrypt from 'bcrypt';
 import { AuthDto } from './dto/auth.dto';
+import { CreateUserDto } from './dto/create.user.dto';
+import { UserEntity } from '../users/entities/users.entity';
 
 @Injectable()
 export class AuthService {
@@ -56,5 +58,9 @@ export class AuthService {
     return this.dbService.user.findUnique({
       where: { id: payload.user_id, email: payload.user_email },
     });
+  }
+
+  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+    return this.dbService.user.create({ data: createUserDto });
   }
 }
