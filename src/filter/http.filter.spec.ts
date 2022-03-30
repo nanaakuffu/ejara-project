@@ -1,4 +1,4 @@
-import { ErrorHandlerFilter } from './error-handler.filter';
+import { ErrorHandlerFilter } from './http.filter';
 
 describe('ErrorHandlerFilter', () => {
   it('should be defined', () => {

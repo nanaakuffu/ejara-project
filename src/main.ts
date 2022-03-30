@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import DBService from './db/db.service';
-import { ErrorHandlerFilter } from './filter/error-handler.filter';
+import { ErrorHandlerFilter } from './filter/http.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
